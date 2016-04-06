@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.join(File.dirname(__FILE__), "../lib"))
+
+require "grub/cli"
+require "grub"
+
+Grub::CLI.new.run(ARGV)
