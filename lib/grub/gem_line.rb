@@ -28,10 +28,19 @@ module Grub
     end
 
     def should_insert?
-      !info.empty? && (prev_line_comment.nil? || !prev_line_comment.include?(comment))
+      !info.empty? && !already_added_comment && !existing_comment_option
     end
 
     private
+
+    def already_added_comment
+      prev_line_comment && prev_line_comment.include?(comment)
+    end
+
+    # if there exists a prev_line_comment and the user has specified new_comments_only
+    def existing_comment_option
+      prev_line_comment && options[:new_comments_only]
+    end
 
     def leading_spaces_count
       original_line.length - original_line.lstrip.length

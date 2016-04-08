@@ -11,6 +11,7 @@ module Grub
         add_banner(opts)
         add_tail_options(opts)
         add_info_options(opts)
+        add_gemfile_comment_options(opts)
       end
     end
 
@@ -33,6 +34,12 @@ module Grub
       end
       opts.on("--description-only", "Only output the description") do
         options[:description_only] = true
+      end
+    end
+
+    def add_gemfile_comment_options(opts)
+      opts.on("--new-comments-only", "Only add a comment to gemfile if there isn't a comment already") do
+        options[:new_comments_only] = true
       end
     end
 
