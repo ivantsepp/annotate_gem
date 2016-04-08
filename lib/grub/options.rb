@@ -10,15 +10,31 @@ module Grub
       @options_parser = OptionParser.new do |opts|
         add_banner(opts)
         add_tail_options(opts)
+        add_info_options(opts)
       end
     end
 
     def parse!(args)
       options_parser.parse!(args)
+      validate_options
       options
     end
 
     private
+
+    def validate_options
+      info_flags = options[:website_only] && options[:description_only]
+      raise ArgumentError, "Cannot set both --website-only and --description-only flags" if info_flags
+    end
+
+    def add_info_options(opts)
+      opts.on("--website-only", "Only output the website") do
+        options[:website_only] = true
+      end
+      opts.on("--description-only", "Only output the description") do
+        options[:description_only] = true
+      end
+    end
 
     def add_banner(opts)
       opts.banner = <<-BANNER.gsub(/\A\s{8}/, '')

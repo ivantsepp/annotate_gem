@@ -3,12 +3,13 @@ module Grub
 
     GEM_LINE_REGEX = /\A\s*gem[\s(]+["'](?<name>[^'"]*)["']/.freeze
 
-    attr_accessor :gemfile_path, :gem_lines, :source
+    attr_accessor :gemfile_path, :gem_lines, :source, :options
 
-    def initialize(gemfile_path = Bundler.default_gemfile)
+    def initialize(gemfile_path, options = {})
       @gemfile_path = gemfile_path
       @source = []
       @gem_lines = []
+      @options = options
     end
 
     def parse
@@ -21,7 +22,8 @@ module Grub
             name: match[:name],
             original_line: line,
             location: i,
-            prev_line_comment: prev_line_comment
+            prev_line_comment: prev_line_comment,
+            options: options
           )
         end
       end

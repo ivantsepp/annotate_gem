@@ -1,13 +1,14 @@
 module Grub
   class GemLine
 
-    attr_accessor :name, :original_line, :location, :prev_line_comment, :spec
+    attr_accessor :name, :original_line, :location, :prev_line_comment, :spec, :options
 
-    def initialize(name:, original_line: nil, location: nil, prev_line_comment: nil)
+    def initialize(name:, original_line: nil, location: nil, prev_line_comment: nil, options: {})
       @name = name
       @original_line = original_line
       @location = location
       @prev_line_comment = prev_line_comment
+      @options = options
     end
 
     def comment
@@ -16,13 +17,18 @@ module Grub
     end
 
     def info
-      gem_information = "#{description}"
-      gem_information << " (#{website})" unless website.nil? || website.empty?
-      gem_information << "\n"
+      output = if options[:website_only]
+        website
+      elsif options[:description_only]
+        description
+      else
+        description_and_website
+      end
+      output << "\n"
     end
 
     def should_insert?
-      prev_line_comment.nil? || !prev_line_comment.include?(comment)
+      !info.empty? && (prev_line_comment.nil? || !prev_line_comment.include?(comment))
     end
 
     private
@@ -32,11 +38,17 @@ module Grub
     end
 
     def description
-      spec.summary if spec
+      "#{spec.summary}" if spec
     end
 
     def website
-      spec.homepage if spec
+      "#{spec.homepage.to_s}" if spec
+    end
+
+    def description_and_website
+      output = "#{description}"
+      output << " (#{website})" unless website.empty?
+      output
     end
 
   end
