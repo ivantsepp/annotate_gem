@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Grub::VERSION
   spec.authors       = ["Ivan Tse"]
   spec.email         = ["ivan.tse1@gmail.com"]
-  spec.summary       = %q{Add comments to your Gemfile with each dependency's description.}
+  spec.summary       = Grub::DESCRIPTION
   spec.description   = <<-DESCRIPTION.gsub(/^\s+/, "").gsub(/\n/, " ")
                         Clarify your dependencies by adding a detailed comment to each line in Gemfile specifying the
                         gem's summary and its website if any.
