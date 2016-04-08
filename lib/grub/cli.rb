@@ -1,11 +1,10 @@
 module Grub
   class CLI
     def run(*args)
-      Bundler.configure
       gemfile = Gemfile.new
       gemfile.parse
       unless gemfile.gem_lines.empty?
-        SpecFinder.new(gemfile.gem_lines).find_specs
+        SpecFinder.find_specs_for(gemfile.gem_lines)
         gemfile.write_comments
       end
     end

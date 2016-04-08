@@ -1,7 +1,7 @@
 module Grub
   class Gemfile
 
-    GEM_LINE_REGEX = /\A\s*gem[\s(]+["']([^'"]*)["']/.freeze
+    GEM_LINE_REGEX = /\A\s*gem[\s(]+["'](?<name>[^'"]*)["']/.freeze
 
     attr_accessor :gemfile_path, :gem_lines, :source
 
@@ -14,10 +14,11 @@ module Grub
     def parse
       self.source = File.readlines(gemfile_path)
       source.each_with_index do |line, i|
-        if (match = GEM_LINE_REGEX.match(line))
-          prev_line_comment = source[i - 1].strip.start_with?("#") ? source[i - 1] : nil
+        if match = GEM_LINE_REGEX.match(line)
+          prev_line = source[i - 1]
+          prev_line_comment = prev_line if is_line_a_comment?(prev_line)
           self.gem_lines << GemLine.new(
-            name: match[1],
+            name: match[:name],
             original_line: line,
             location: i,
             prev_line_comment: prev_line_comment
@@ -32,5 +33,12 @@ module Grub
       end
       File.write(gemfile_path, source.join)
     end
+
+    private
+
+    def is_line_a_comment?(line)
+      line.strip.start_with?("#")
+    end
+
   end
 end

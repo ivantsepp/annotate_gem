@@ -1,7 +1,7 @@
 module Grub
   class GemLine
 
-    attr_accessor :original_line, :location, :prev_line_comment, :name, :spec
+    attr_accessor :name, :original_line, :location, :prev_line_comment, :spec
 
     def initialize(name:, original_line:, location:, prev_line_comment: nil)
       @name = name
@@ -11,16 +11,21 @@ module Grub
     end
 
     def comment
-      leading_spaces_count = original_line.length - original_line.lstrip.length
       leading_spaces = original_line[0..leading_spaces_count - 1] if leading_spaces_count > 0
-      comment = "# #{description}"
+      comment = "#{leading_spaces}# #{description}"
       comment << " (#{website})" unless website.nil? || website.empty?
       comment << "\n"
-      "#{leading_spaces}#{comment}"
+      comment
     end
 
     def should_insert?
       prev_line_comment.nil? || !prev_line_comment.include?(comment)
+    end
+
+    private
+
+    def leading_spaces_count
+      original_line.length - original_line.lstrip.length
     end
 
     def description
