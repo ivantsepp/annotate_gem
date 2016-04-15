@@ -12,6 +12,7 @@ module Grub
     def find_matching_specs_for(gem_lines)
       gem_lines.each do |line|
         matching_specs = Gem::Dependency.new(line.name).matching_specs
+        # need to find latest
         line.spec = matching_specs.first if matching_specs.any?
       end
     end
