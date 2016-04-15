@@ -35,7 +35,9 @@ class Grub::SpecFinderTest < Minitest::Test
     gem_line_2.stubs(name: "2")
     gem_line_2.expects(:spec=).with(spec_2)
 
-    Bundler::Fetcher.any_instance.expects(:fetch_dependency_remote_specs).with(["1", "2"]).returns([[
+    dependency_fetcher_mock = Bundler::Fetcher::Dependency.new(nil, nil, nil)
+    Bundler::Fetcher.any_instance.expects(:fetchers).returns([dependency_fetcher_mock])
+    dependency_fetcher_mock.expects(:dependency_specs).with(["1", "2"]).returns([[
       ["1", Gem::Version.new("1")],
       ["2", Gem::Version.new("1")],
     ], "dependencies here"])

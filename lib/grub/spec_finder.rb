@@ -19,8 +19,10 @@ module Grub
 
     def fetch_specs_for(gem_lines)
       print "Fetching gem metadata..."
-      fetcher = Bundler::Fetcher.new(Gem.sources.first.uri)
-      versions, _ = fetcher.send(:fetch_dependency_remote_specs, gem_lines.collect(&:name))
+      remote = Bundler::Source::Rubygems::Remote.new(Gem.sources.first.uri)
+      fetcher = Bundler::Fetcher.new(remote)
+      dependency_fetcher = fetcher.fetchers.find {|f| Bundler::Fetcher::Dependency === f }
+      versions, _ = dependency_fetcher.dependency_specs(gem_lines.collect(&:name))
       gem_lines.each do |gem_line|
         print "."
         gem_versions = versions.select { |v| v.first == gem_line.name }
