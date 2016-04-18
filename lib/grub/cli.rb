@@ -16,17 +16,26 @@ module Grub
       gemfile = Gemfile.new(Bundler.default_gemfile, options)
       gemfile.parse
       unless gemfile.gem_lines.empty?
-        SpecFinder.find_specs_for(gemfile.gem_lines)
+        SpecFinder.find_specs_for(gemfile.gem_lines, &self.method(:print_progress))
         gemfile.write_comments
       end
     end
 
     def run_for_gem(gem_name, options = {})
       gem_line = GemLine.new(name: gem_name, options: options)
-      SpecFinder.find_specs_for(gem_line)
+      SpecFinder.find_specs_for(gem_line, &self.method(:print_progress))
+
       info = gem_line.info
       info = "No information to show" if info.strip.empty?
       puts info
+    end
+
+    private
+
+    def print_progress(completed, total)
+      print "Fetching gem metadata..." if completed.zero?
+      print "."
+      print "\n" if completed == total
     end
   end
 end
