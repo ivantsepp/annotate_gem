@@ -27,6 +27,7 @@ module Grub
       versions, _ = dependency_fetcher.dependency_specs(gem_lines.collect(&:name))
       gem_lines.each do |gem_line|
         gem_versions = versions.select { |v| v.first == gem_line.name }
+        next if gem_versions.empty? # couldn't find version on RubyGems so go to next one
         version = find_latest_version(gem_versions)
         gem_line.spec = fetcher.fetch_spec([gem_line.name, version])
         completed += 1

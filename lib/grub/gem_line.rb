@@ -56,7 +56,7 @@ module Grub
 
     def description_and_website
       output = "#{description}"
-      output << " (#{website})" unless website.empty?
+      output << " (#{website})" unless website.nil? || website.empty?
       output
     end
 
