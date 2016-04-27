@@ -55,7 +55,6 @@ gem "pry"
 ```
 $ grub aasm
 State machine mixin for Ruby objects (https://github.com/aasm/aasm)
-
 ```
 
 ## Contributing
