@@ -28,7 +28,7 @@ module Grub
     end
 
     def should_insert?
-      !info.empty? && !already_added_comment && !existing_comment_option
+      !info.strip.empty? && !already_added_comment && !existing_comment_option
     end
 
     private

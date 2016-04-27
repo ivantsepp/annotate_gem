@@ -29,6 +29,11 @@ class Grub::GemLineTest < Minitest::Test
     refute gem_line.should_insert?
   end
 
+  def test_should_insert_with_no_spec
+    gem_line = create_gem_line
+    refute gem_line.should_insert?
+  end
+
   def test_should_insert_with_already_added_comment
     gem_line = create_gem_line(prev_line_comment: "# Hello world (http://example.com)\n")
     spec = stub(summary: "Hello world", homepage: "http://example.com")

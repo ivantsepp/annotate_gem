@@ -44,7 +44,27 @@ class Grub::SpecFinderTest < Minitest::Test
     Grub::SpecFinder.expects(:find_latest_version).returns(Gem::Version.new("1")).twice
     Bundler::Fetcher.any_instance.expects(:fetch_spec).with(["1", Gem::Version.new("1")]).returns(spec_1)
     Bundler::Fetcher.any_instance.expects(:fetch_spec).with(["2", Gem::Version.new("1")]).returns(spec_2)
-    Grub::SpecFinder.fetch_specs_for([gem_line_1, gem_line_2])
+    yielded_values = []
+    Grub::SpecFinder.fetch_specs_for([gem_line_1, gem_line_2]) do |*args|
+      yielded_values << args
+    end
+    assert_equal [[0, 2], [1, 2], [2, 2]], yielded_values
+    $stdout = original_stdout
+  end
+
+  def test_fetch_unknown_specs
+    original_stdout = $stdout
+    $stdout = StringIO.new
+
+    gem_line_1 = mock
+    gem_line_1.stubs(name: "1")
+    gem_line_1.expects(:spec=).never
+
+    dependency_fetcher_mock = Bundler::Fetcher::Dependency.new(nil, nil, nil)
+    Bundler::Fetcher.any_instance.expects(:fetchers).returns([dependency_fetcher_mock])
+    dependency_fetcher_mock.expects(:dependency_specs).with(["1"]).returns([[], "dependencies here"])
+    Bundler::Fetcher.any_instance.expects(:fetch_spec).never
+    Grub::SpecFinder.fetch_specs_for([gem_line_1])
 
     $stdout = original_stdout
   end

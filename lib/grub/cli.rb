@@ -32,10 +32,10 @@ module Grub
 
     private
 
-    def print_progress(completed, total)
-      print "Fetching gem metadata..." if completed.zero?
+    def print_progress(processing, total)
+      print "Fetching gem metadata..." if processing.zero?
       print "."
-      print "\n" if completed == total
+      print "\n" if processing == total
     end
   end
 end
