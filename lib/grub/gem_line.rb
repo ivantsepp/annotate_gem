@@ -3,12 +3,13 @@ module Grub
 
     attr_accessor :name, :original_line, :location, :prev_line_comment, :spec, :options
 
-    def initialize(name:, original_line: nil, location: nil, prev_line_comment: nil, options: {})
-      @name = name
-      @original_line = original_line
-      @location = location
-      @prev_line_comment = prev_line_comment
-      @options = options
+    def initialize(*args)
+      named_params = args.last.respond_to?(:[]) && args.last
+      @name = (named_params && named_params[:name]) || args[0]
+      @original_line = (named_params && named_params[:original_line]) || args[1]
+      @location = (named_params && named_params[:location]) || args[2]
+      @prev_line_comment = (named_params && named_params[:prev_line_comment]) || args[3]
+      @options = (named_params && named_params[:options]) || named_params
     end
 
     def comment

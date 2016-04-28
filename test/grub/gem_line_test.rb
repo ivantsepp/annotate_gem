@@ -72,9 +72,7 @@ class Grub::GemLineTest < Minitest::Test
 
   def create_gem_line(options = {})
     Grub::GemLine.new(
-      name: "grub",
-      original_line: "gem 'grub'",
-      **options
+      { name: "grub", original_line: "gem 'grub'" }.merge(options)
     )
   end
 
