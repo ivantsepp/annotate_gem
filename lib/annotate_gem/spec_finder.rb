@@ -1,4 +1,4 @@
-module Grub
+module AnnotateGem
   module SpecFinder
     extend self
 

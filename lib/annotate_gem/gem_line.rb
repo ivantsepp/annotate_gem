@@ -1,4 +1,4 @@
-module Grub
+module AnnotateGem
   class GemLine
 
     attr_accessor :name, :original_line, :location, :prev_line_comment, :spec, :options

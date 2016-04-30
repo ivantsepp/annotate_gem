@@ -1,6 +1,6 @@
 require "optparse"
 
-module Grub
+module AnnotateGem
   class Options
 
     attr_accessor :options, :options_parser
@@ -45,7 +45,7 @@ module Grub
 
     def add_banner(opts)
       opts.banner = <<-BANNER.gsub(/\A\s{8}/, '')
-        #{Grub::DESCRIPTION}
+        #{AnnotateGem::DESCRIPTION}
         Usage: #{opts.program_name} [options]
                #{opts.program_name} [gem name]
       BANNER
@@ -57,7 +57,7 @@ module Grub
         exit
       end
       opts.on_tail("-v", "--version", "Show version") do
-        puts Grub::VERSION
+        puts AnnotateGem::VERSION
         exit
       end
     end

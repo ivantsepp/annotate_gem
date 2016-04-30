@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Grub::GemLineTest < Minitest::Test
+class AnnotateGem::GemLineTest < Minitest::Test
 
   def test_info
     gem_line = create_gem_line
@@ -59,9 +59,9 @@ class Grub::GemLineTest < Minitest::Test
   end
 
   def test_comment_with_indentation_in_original_line
-    gem_line = Grub::GemLine.new(
-      name: "grub",
-      original_line: "  \tgem 'grub'"
+    gem_line = AnnotateGem::GemLine.new(
+      name: "annotate_gem",
+      original_line: "  \tgem 'annotate_gem'"
     )
     spec = stub(summary: "Hello world", homepage: "http://example.com")
     gem_line.spec = spec
@@ -71,8 +71,8 @@ class Grub::GemLineTest < Minitest::Test
   private
 
   def create_gem_line(options = {})
-    Grub::GemLine.new(
-      { name: "grub", original_line: "gem 'grub'" }.merge(options)
+    AnnotateGem::GemLine.new(
+      { name: "annotate_gem", original_line: "gem 'annotate_gem'" }.merge(options)
     )
   end
 

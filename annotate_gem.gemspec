@@ -1,19 +1,19 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'grub/version'
+require 'annotate_gem/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "grub"
-  spec.version       = Grub::VERSION
+  spec.name          = "annotate_gem"
+  spec.version       = AnnotateGem::VERSION
   spec.authors       = ["Ivan Tse"]
   spec.email         = ["ivan.tse1@gmail.com"]
-  spec.summary       = Grub::DESCRIPTION
+  spec.summary       = AnnotateGem::DESCRIPTION
   spec.description   = <<-DESCRIPTION.gsub(/^\s+/, "").gsub(/\n/, " ")
                         Clarify your dependencies by adding a detailed comment to each line in Gemfile specifying the
                         gem's summary and its website if any.
                        DESCRIPTION
-  spec.homepage      = "https://github.com/ivantsepp/grub"
+  spec.homepage      = "https://github.com/ivantsepp/annotate_gem"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

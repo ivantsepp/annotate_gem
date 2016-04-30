@@ -1,4 +1,4 @@
-module Grub
+module AnnotateGem
   class Gemfile
 
     GEM_LINE_REGEX = /\A\s*gem[\s(]+["'](?<name>[^'"]*)["']/.freeze

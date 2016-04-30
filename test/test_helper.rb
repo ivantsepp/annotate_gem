@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "mocha/mini_test"
-require "grub"
+require "annotate_gem"
 
 module TestHelpers
 
@@ -8,8 +8,8 @@ module TestHelpers
     File.join(File.dirname(__FILE__), "fixtures", "Gemfile")
   end
 
-  def grubbed_gemfile_path
-    File.join(File.dirname(__FILE__), "fixtures", "Gemfile_grubbed")
+  def annotated_gemfile_path
+    File.join(File.dirname(__FILE__), "fixtures", "Gemfile_annotated")
   end
 
   def with_gemfile(content)

@@ -1,6 +1,6 @@
-require "grub/options"
+require "annotate_gem/options"
 
-module Grub
+module AnnotateGem
   class CLI
     def run(args)
       options = Options.new.parse!(args)
