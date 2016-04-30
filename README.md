@@ -21,7 +21,7 @@ gem "brakeman"
 
 The motivation for `annotate_gem` is that developers often open a Gemfile and not know what many of the listed gems are actually for. It's hard to track down which gem is providing which functionality. This is a common problem since many gem names do not reflect the actual feature.
 
-If you do _not_ want to install the gem, you can also visit <https://annotate_gem.herokuapp.com/> which is a web interface for `annotate_gem`.
+If you do _not_ want to install the gem, you can also visit <https://annotate-gem.herokuapp.com/> which is a web interface for `annotate_gem`.
 
 ## Installation
 
