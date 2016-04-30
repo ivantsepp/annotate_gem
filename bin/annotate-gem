@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.join(File.dirname(__FILE__), "../lib"))
+
+require "annotate_gem/cli"
+require "annotate_gem"
+
+AnnotateGem::CLI.new.run(ARGV)
