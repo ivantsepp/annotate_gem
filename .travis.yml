@@ -1,21 +1,14 @@
 language: ruby
-rvm:
-  - 2.2
-  - 2.1
-  - 2.0
-  - 1.9
 before_install: gem install bundler -v $BUNDLER_VERSION
 install: bundle _${BUNDLER_VERSION}_ install --jobs=3 --retry=3
 script: bundle _${BUNDLER_VERSION}_ exec rake test
-env:
-  - BUNDLER_VERSION=1.12.1
-  - BUNDLER_VERSION=1.11.2
-  - BUNDLER_VERSION=1.10.6
-  - BUNDLER_VERSION=1.9.10
-  - BUNDLER_VERSION=1.8.9
-  - BUNDLER_VERSION=1.7.15
-  - BUNDLER_VERSION=1.6.9
-  - BUNDLER_VERSION=1.5.3
-  - BUNDLER_VERSION=1.3.6
-  - BUNDLER_VERSION=1.2.5
-  - BUNDLER_VERSION=1.1.5
+matrix:
+  include:
+    - rvm: 2.2
+      env: BUNDLER_VERSION=1.12.1
+    - rvm: 2.2
+      env: BUNDLER_VERSION=1.5.3
+    - rvm: 1.9
+      env: BUNDLER_VERSION=1.12.1
+    - rvm: 1.9
+      env: BUNDLER_VERSION=1.5.3
