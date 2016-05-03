@@ -21,11 +21,8 @@ module AnnotateGem
       total = gem_lines.length
       processing = 0
       yield processing, total if block_given?
-      # TODO: Support private sources
-      remote = Bundler::Source::Rubygems::Remote.new(Gem.sources.first.uri)
-      fetcher = Bundler::Fetcher.new(remote)
-      dependency_fetcher = fetcher.fetchers.find {|f| Bundler::Fetcher::Dependency === f }
-      versions, _ = dependency_fetcher.dependency_specs(gem_lines.collect(&:name))
+      fetcher = bundler_fetcher
+      versions = get_versions(fetcher, gem_lines.collect(&:name))
       gem_lines.each do |gem_line|
         processing += 1
         yield processing, total if block_given?
@@ -39,5 +36,33 @@ module AnnotateGem
     def find_latest_version(versions)
        versions.sort_by { |v| v[1] }.last[1]
     end
+
+    private
+
+    # TODO: Support private sources
+    def bundler_fetcher
+      # Bundler versions 1.10.0 moves AnonymizableURI to Source::Rubygems::Remote
+      # See https://github.com/bundler/bundler/pull/3476
+      if defined?(Bundler::Source::Rubygems::Remote)
+        remote = Bundler::Source::Rubygems::Remote.new(Gem.sources.first.uri)
+      else
+        remote = Gem.sources.first.uri
+      end
+      Bundler::Fetcher.new(remote)
+    end
+
+    def get_versions(fetcher, names)
+      # Bundler versions 1.10.0 moves fetchers into separate classes
+      # See https://github.com/bundler/bundler/pull/3518
+      if fetcher.respond_to?(:fetch_dependency_remote_specs, true)
+        versions, _ = fetcher.send(:fetch_dependency_remote_specs, names)
+      else
+        # require 'pry'; binding.pry
+        dependency_fetcher = fetcher.fetchers.find {|f| Bundler::Fetcher::Dependency === f }
+        versions, _ = dependency_fetcher.dependency_specs(names)
+      end
+      versions
+    end
+
   end
 end
