@@ -5,7 +5,8 @@ rvm:
   - 2.0
   - 1.9
 before_install: gem install bundler -v $BUNDLER_VERSION
-script: bundle _${BUNDLER_VERSION}_ rake test
+install: bundle _${BUNDLER_VERSION}_ install --jobs=3 --retry=3
+script: bundle _${BUNDLER_VERSION}_ exec rake test
 env:
   - BUNDLER_VERSION=1.12.1
   - BUNDLER_VERSION=1.11.2
