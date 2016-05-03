@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/ivantsepp/annotate_gem.svg?branch=master)](https://travis-ci.org/ivantsepp/annotate_gem)
+[![Gem Version](https://badge.fury.io/rb/annotate_gem.svg)](https://badge.fury.io/rb/annotate_gem)
+
 # AnnotateGem
 
 `annotate-gem` is command line tool that will add useful comments to your Gemfile. For each gem, `annotate-gem` will create a comment with the gem's description and the gem's website. For example, a Gemfile containing the following
