@@ -51,6 +51,16 @@ class AnnotateGem::GemLineTest < Minitest::Test
     refute gem_line.should_insert?
   end
 
+  def test_should_insert__with_inline_and_existing_comment
+    gem_line = create_gem_line(
+      original_line: "gem 'annotate_gem' # This is an existing comment\n",
+      options: { inline: true }
+    )
+    spec = stub(summary: "Hello world", homepage: "http://example.com")
+    gem_line.spec = spec
+    refute gem_line.should_insert?
+  end
+
   def test_comment
     gem_line = create_gem_line
     spec = stub(summary: "Hello world", homepage: "http://example.com")

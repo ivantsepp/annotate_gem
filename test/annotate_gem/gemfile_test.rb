@@ -46,6 +46,16 @@ class AnnotateGem::GemfileTest < Minitest::Test
     end
   end
 
+  def test_write_comments_with_inline
+    with_gemfile("gem 'rails'") do |path|
+      gemfile = AnnotateGem::Gemfile.new(path, inline: true)
+      gemfile.gem_lines = [mock(location: 0, inline_comment: "gem 'rails' # Rails description!\n", should_insert?: true)]
+      gemfile.source = ["gem 'rails'"]
+      gemfile.write_comments
+      assert_equal "gem 'rails' # Rails description!\n", File.read(path)
+    end
+  end
+
   def test_that_options_are_passed_through
     AnnotateGem::GemLine.expects(:new).with(
       name: "rails",

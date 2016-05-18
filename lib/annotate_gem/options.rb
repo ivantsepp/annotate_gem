@@ -38,8 +38,12 @@ module AnnotateGem
     end
 
     def add_gemfile_comment_options(opts)
-      opts.on("--new-comments-only", "Only add a comment to gemfile if there isn't a comment already") do
+      opts.on("--new-comments-only", "Only add a comment to gemfile if there isn't a comment already (for non-inline comments)") do
         options[:new_comments_only] = true
+      end
+
+      opts.on("--inline", "Inline the comment") do
+        options[:inline] = true
       end
     end
 

@@ -17,6 +17,10 @@ module AnnotateGem
       comment = "#{leading_spaces}# #{info}"
     end
 
+    def inline_comment
+      "#{original_line.chomp} # #{info}"
+    end
+
     def info
       output = if options[:website_only]
         website
@@ -35,12 +39,16 @@ module AnnotateGem
     private
 
     def already_added_comment
-      prev_line_comment && prev_line_comment.include?(comment)
+      !options[:inline] && prev_line_comment && prev_line_comment.include?(comment)
     end
 
     # if there exists a prev_line_comment and the user has specified new_comments_only
     def existing_comment_option
-      prev_line_comment && options[:new_comments_only]
+      (options[:new_comments_only] && prev_line_comment) || (options[:inline] && original_line_has_comment?)
+    end
+
+    def original_line_has_comment?
+      original_line.include?("#")
     end
 
     def leading_spaces_count
