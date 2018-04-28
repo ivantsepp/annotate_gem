@@ -36,6 +36,16 @@ class AnnotateGem::GemfileTest < Minitest::Test
     assert_equal 2, gemfile.gem_lines.length
   end
 
+  def test_parses_non_ascii_symbols
+    gemfile_content=unindent(<<-GEMFILE)
+      # Non ASCII 鋸 набор סמלים
+    GEMFILE
+
+    gemfile = gemfile_for(gemfile_content.force_encoding('ASCII'))
+
+    assert_equal 0, gemfile.gem_lines.length
+  end
+
   def test_write_comments
     with_gemfile("gem 'rails'") do |path|
       gemfile = AnnotateGem::Gemfile.new(path)

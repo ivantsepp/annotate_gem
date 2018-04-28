@@ -47,7 +47,22 @@ source 'https://rubygems.org'
 gem "pry"
 ```
 
-`annotate-gem` has several options and you can see them via `annotate-gem -h`. `annotate-gem` also works with specifying a single gem name:
+`annotate-gem` has several options:
+
+```
+$ annotate_gem --help
+  Add comments to your Gemfile with each dependency's description.
+        Usage: annotate_gem [options]
+               annotate_gem [gem name]
+        --website-only               Only output the website
+        --description-only           Only output the description
+        --new-comments-only          Only add a comment to gemfile if there isn't a comment already (for non-inline comments)
+        --inline                     Inline the comment
+    -h, --help                       Show this message
+    -v, --version                    Show version
+```
+
+`annotate-gem` also works with specifying a single gem name:
 
 ```
 $ annotate-gem aasm

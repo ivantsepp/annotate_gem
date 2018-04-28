@@ -6,7 +6,7 @@ class AnnotateGem::CLITest < Minitest::Test
 
   def test_run_for_gemfile
     with_gemfile(File.read(gemfile_path)) do |path|
-      Bundler.expects(:default_gemfile).returns(path)
+      Bundler.expects(:default_gemfile).returns(Pathname.new(path)).at_least_once
       out, _ = capture_io do
         AnnotateGem::CLI.new.run_for_gemfile
       end
