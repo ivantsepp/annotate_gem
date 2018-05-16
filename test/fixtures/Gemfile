@@ -23,9 +23,20 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Non ASCII 鋸 набор סמלים
+
+gem 'nokogiri', '1.8.2'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+# test ruby code in Gemfile
+if ENV['wisper']
+  gem 'wisper-activejob',
+    git: 'https://github.com/cambridgebrainsciences/wisper-activejob.git',
+    branch: 'rails5'
 end

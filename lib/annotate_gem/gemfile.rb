@@ -13,9 +13,10 @@ module AnnotateGem
     end
 
     def parse
-      self.source = File.readlines(gemfile_path)
+      self.source = File.readlines(gemfile_path, :encoding => 'UTF-8')
       source.each_with_index do |line, i|
-        if match = GEM_LINE_REGEX.match(line)
+        match = GEM_LINE_REGEX.match(line)
+        if match
           prev_line = source[i - 1] if i > 0
           prev_line_comment = prev_line if is_line_a_comment?(prev_line)
           self.gem_lines << GemLine.new(

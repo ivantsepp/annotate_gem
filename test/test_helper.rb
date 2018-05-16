@@ -1,6 +1,7 @@
 require "minitest/autorun"
-require "mocha/mini_test"
+require "mocha/minitest"
 require "annotate_gem"
+require "pry"
 
 module TestHelpers
 

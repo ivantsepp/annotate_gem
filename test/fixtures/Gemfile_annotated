@@ -13,14 +13,14 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use jQuery with Rails 4+ (http://rubygems.org/gems/jquery-rails)
+# Use jQuery with Rails 4+ (https://github.com/rails/jquery-rails)
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster (https://github.com/turbolinks/turbolinks-rails)
+# Turbolinks makes navigating your web application faster (https://github.com/turbolinks/turbolinks)
 gem 'turbolinks'
 # Create JSON structures via a Builder-style DSL (https://github.com/rails/jbuilder)
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-# rdoc html with javascript search index. (http://github.com/voloko/sdoc)
+# rdoc html with javascript search index. (https://github.com/zzak/sdoc)
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
@@ -32,12 +32,25 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Non ASCII 鋸 набор סמלים
+
+# Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser (http://nokogiri.org)
+gem 'nokogiri', '1.8.2'
+
 group :development, :test do
-  # Ruby 2.0 fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
+  # Ruby fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
   gem 'byebug'
   # A debugging tool for your Ruby on Rails applications. (https://github.com/rails/web-console)
   gem 'web-console', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   # Rails application preloader (https://github.com/rails/spring)
   gem 'spring'
+end
+
+# test ruby code in Gemfile
+if ENV['wisper']
+  # Provides Wisper with asynchronous event publishing using ActiveJob (https://github.com/krisleech/wisper-activejob)
+  gem 'wisper-activejob',
+    git: 'https://github.com/cambridgebrainsciences/wisper-activejob.git',
+    branch: 'rails5'
 end
