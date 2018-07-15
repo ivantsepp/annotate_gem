@@ -29,12 +29,17 @@ module AnnotateGem
         gem_versions = versions.select { |v| v.first == gem_line.name }
         next if gem_versions.empty? # couldn't find version on RubyGems so go to next one
         version = find_latest_version(gem_versions)
-        gem_line.spec = fetcher.fetch_spec([gem_line.name, version])
+        platform = find_latest_version_platform(gem_versions)
+        gem_line.spec = fetcher.fetch_spec([gem_line.name, version, platform])
       end
     end
 
     def find_latest_version(versions)
-       versions.sort_by { |v| v[1] }.last[1]
+      versions.sort_by { |v| v[1] }.last[1]
+    end
+
+    def find_latest_version_platform(versions)
+      versions.sort_by { |v| v[1] }.last[2]
     end
 
     private
