@@ -16,7 +16,7 @@ will be converted into something that is more descriptive and is self-documentin
 ```ruby
 # Full-stack web application framework. (http://www.rubyonrails.org)
 gem "rails"
-# Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser (http://nokogiri.org)
+# Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 gem "nokogiri"
 # Security vulnerability scanner for Ruby on Rails. (http://brakemanscanner.org)
 gem "brakeman"
