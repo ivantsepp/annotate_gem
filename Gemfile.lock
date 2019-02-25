@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     annotate_gem (0.0.13)
-      bundler (~> 1.1)
+      bundler (>= 1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -34,4 +34,4 @@ DEPENDENCIES
   rake (~> 10.0)
 
 BUNDLED WITH
-   1.16.1
+   1.17.3

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Full-stack web application framework. (http://rubyonrails.org)
+# Full-stack web application framework. (https://rubyonrails.org)
 gem 'rails', '4.2.1'
 # This module allows Ruby programs to interface with the SQLite3 database engine (http://www.sqlite.org) (https://github.com/sparklemotion/sqlite3-ruby)
 gem 'sqlite3'
