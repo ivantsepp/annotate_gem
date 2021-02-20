@@ -4,15 +4,14 @@ before_install:
   - gem install bundler -v $BUNDLER_VERSION
 install: bundle _${BUNDLER_VERSION}_ install --jobs=3 --retry=3
 script: bundle _${BUNDLER_VERSION}_ exec rake test
-matrix:
-  include:
-    - rvm: 2.5
-      env: BUNDLER_VERSION=1.16.1
-    - rvm: 2.4
-      env: BUNDLER_VERSION=1.16.1
-    - rvm: 2.2
-      env: BUNDLER_VERSION=1.12.1
-    - rvm: 2.2
-      env: BUNDLER_VERSION=1.12.1
-    - rvm: 2.0
-      env: BUNDLER_VERSION=1.12.1
+rvm:
+- 2.5
+- 2.6
+- 2.7
+- 3.0
+env:
+  - BUNDLER_VERSION=1.16.6
+  - BUNDLER_VERSION=1.17.3
+  - BUNDLER_VERSION=2.0.2
+  - BUNDLER_VERSION=2.1.4
+  - BUNDLER_VERSION=2.2.8
